@@ -28,7 +28,8 @@ type ClassNames =
   | "itemContainer"
   | "buttonContainer"
   | "lateralBar"
-  | "barSpacer";
+  | "barSpacer"
+  | "resetButton";
 interface OwnProps {
   classes: Record<ClassNames, string>;
 }
@@ -49,6 +50,10 @@ export const CalculatorPage: React.FC<Props> = (props: Props) => {
       ...values,
       [itemName]: { value, kcal: value * itemKcal },
     });
+  };
+
+  const handleReset = () => {
+    setValues({});
   };
 
   const result = Object.keys(values).reduce((acc: number, itemName: string) => {
@@ -80,6 +85,13 @@ export const CalculatorPage: React.FC<Props> = (props: Props) => {
           <div className={classes.buttonContainer}>
             <Button variant="contained" onClick={sendData(result)}>
               {result} Kcal
+            </Button>
+            <Button
+              variant="outlined"
+              onClick={handleReset}
+              className={classes.resetButton}
+            >
+              Reset
             </Button>
           </div>
         </div>
@@ -195,6 +207,9 @@ const styles = (theme: CustomTheme): Record<ClassNames, CSSProperties> => ({
     width: 0,
     border: "1px solid black",
     margin: 10,
+  },
+  resetButton: {
+    marginLeft: theme.spacing(2),
   },
 });
 
