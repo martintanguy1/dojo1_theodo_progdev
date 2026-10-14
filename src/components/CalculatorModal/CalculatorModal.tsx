@@ -18,8 +18,7 @@ type ClassNames =
   | "mainFoodItems"
   | "closeContainer"
   | "itemContainer"
-  | "buttonContainer"
-  | "resetButton";
+  | "buttonContainer";
 interface OwnProps {
   classes: Record<ClassNames, string>;
   onClose?: () => void;
@@ -42,10 +41,6 @@ export const CalculatorModal: React.FC<Props> = (props: Props) => {
       ...values,
       [itemName]: { value, kcal: value * itemKcal }
     });
-  };
-
-  const handleReset = () => {
-    setValues({});
   };
 
   const result = Object.keys(values).reduce((acc: number, itemName: string) => {
@@ -74,13 +69,6 @@ export const CalculatorModal: React.FC<Props> = (props: Props) => {
         </div>
         <div className={classes.buttonContainer}>
           <Button variant="contained">{result} Kcal</Button>
-          <Button
-            variant="outlined"
-            onClick={handleReset}
-            className={classes.resetButton}
-          >
-            Reset
-          </Button>
         </div>
       </DialogContent>
     </Dialog>
@@ -107,9 +95,6 @@ const styles = (theme: CustomTheme): Record<ClassNames, CSSProperties> => ({
     display: "flex",
     justifyContent: "center",
     marginBottom: theme.spacing(3)
-  },
-  resetButton: {
-    marginLeft: theme.spacing(2)
   }
 });
 
